@@ -72,6 +72,7 @@ if __name__ == "__main__":
         tokenizer = bertTokenizer,
     )
 
+    # define task
     verbalizer = input_selection("Prompt Verbalizer", [
         'Sentiment Verbalizer',
         'Entity Verbalizer',
@@ -79,6 +80,8 @@ if __name__ == "__main__":
         'Customize'
     ])
     classes = None
+
+    # different task use different verbalizer label words
     if verbalizer == 'Knowledge Probing':
         verbalizer = None
         classes = {v:k for k,v in bertTokenizer.get_vocab().items()}

@@ -200,6 +200,7 @@ class ClassificationRunner(BaseRunner):
         self.train_steps_per_epoch = len(self.train_dataloader) // self.config.train.gradient_accumulation_steps
         num_training_steps = self.train_steps_per_epoch * self.config.train.num_epochs
 
+        # optimize
         if not self.config.plm.optimize.freeze_para:
             no_decay = self.config.plm.optimize.no_decay
             weight_decay = self.config.plm.optimize.weight_decay
@@ -214,6 +215,8 @@ class ClassificationRunner(BaseRunner):
                 betas = self.config.plm.optimize.betas,
                 eps = self.config.plm.optimize.eps
             )
+
+            # TODO: get_linear_schedule_with_warmup
             if self.config.plm.optimize.scheduler is not None:
                 self.model_scheduler = get_linear_schedule_with_warmup(
                     self.model_optimizer, 
@@ -283,6 +286,7 @@ class ClassificationRunner(BaseRunner):
 
         self.optimizers = [self.model_optimizer, self.template_optimizer, self.verbalizer_optimizer]
         self.schedulers = [self.model_scheduler, self.template_scheduler, self.verbalizer_scheduler]
+    
     
     def evaluate(self, dataloader, split, post_evaluate_hook=None):
         preds = []

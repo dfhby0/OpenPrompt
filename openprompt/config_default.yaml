@@ -2,7 +2,7 @@
 
 
 environment:
-  num_gpus: 1 # number of gpus to use
+  num_gpus: 7 # number of gpus to use
   cuda_visible_devices: # which index of cuda devices is visible to the program
     - 0
   local_rank: 0 # the main device in the cuda visible devices that your DataParallel model will put the model on.

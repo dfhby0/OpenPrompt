@@ -1,4 +1,3 @@
-## load数据，对每一个batch包装template，返回的和普通data_loader一样
 from transformers.configuration_utils import PretrainedConfig
 from transformers.generation_utils import GenerationMixin
 import torch
@@ -221,11 +220,11 @@ class PromptForClassification(nn.Module):
                        batch: Union[Dict, InputFeatures]):
         r"""Get logits of all <mask> token
         Project the logits of shape
-        (batch_size, max_seq_length, vocab_size)
+        (``batch_size``, ``max_seq_length``, ``vocab_size``)
         into logits of shape (if num_mask_token > 1)
-        (batch_size, num_mask_token, vocab_size)
-        or into logits of shape (if num_mask_token = 1)
-        (batch_size, vocab_size).
+        (``batch_size``, ``num_mask_token``, ``vocab_size``)
+        or into logits of shape (if ``num_mask_token`` = 1)
+        (``batch_size``, ``vocab_size``).
 
         Args:
             logits (:obj:`torch.Tensor`): The original logits of the whole sequence.
